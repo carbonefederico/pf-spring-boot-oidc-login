@@ -1,0 +1,33 @@
+ping-config:
+   oidc-client-id: oidc
+   oidc-client-secret: PingDemo01
+   pf-issuer: https://tcs-pf-engine.ping-eng.com
+   
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.pingidentity.oidclogin: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
+    
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          ping:
+            client-id: ${ping-config.oidc-client-id}
+            client-secret: ${ping-config.oidc-client-secret}
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+            scope:
+              - openid
+              - profile
+        provider:
+          ping:
+            issuer-uri: ${ping-config.pf-issuer}
+
+
